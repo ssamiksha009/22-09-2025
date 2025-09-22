@@ -1,0 +1,7 @@
+node_modules
+output.xlsx
+templates/inc/parameters.inc
+abaqus/*/
+projects/*/
+templates/inc/MF6pt2/*/
+!projects/temp/

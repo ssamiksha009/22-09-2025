@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Select - Apollo Tyres R&D</title>
+  <link rel="stylesheet" href="/css/index.css" />
+  <link rel="stylesheet" href="/css/select.css" />
+  <style>
+    /* Lightweight layout helper in case select.css doesn't define a two-column grid */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 16px;
+      align-items: start;
+    }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      padding: 12px 14px;
+    }
+    .sidebar {
+      position: sticky;
+      top: 12px;
+      max-height: calc(100vh - 24px);
+      overflow: auto;
+    }
+    #previous-tydex-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0 0;
+    }
+    #previous-tydex-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 0;
+      border-bottom: 1px dashed #e5e7eb;
+    }
+    #previous-tydex-list li:last-child { border-bottom: 0; }
+    .muted { color: #6b7280; font-size: 12px; }
+    .data-table { width: 100%; border-collapse: collapse; }
+    .data-table th, .data-table td { padding: 6px 8px; border-bottom: 1px solid #eee; }
+    .protocol-title { margin: 8px 0 12px; font-weight: 600; font-size: 18px; }
+  </style>
+</head>
+
+<body>
+  <header class="main-header">
+    <div class="logo-container">
+      <img
+        src="/images/Apollo-Tyres-Logo.png"
+        alt="Apollo Tyres Logo"
+        class="logo"
+        onclick="window.location.href='/index.html'"
+        style="cursor: pointer;"
+      />
+    </div>
+    <h1 class="header-title">Tyre Virtualization Tool</h1>
+    <button id="logoutBtn" class="logout-button">Logout</button>
+  </header>
+
+  <main>
+    <div id="protocol-title" class="protocol-title"></div>
+
+    <!-- Two-column layout: left content (matrix + existing tables), right Tydex sidebar -->
+    <section class="two-col">
+      <!-- LEFT: matrix/table content -->
+      <div>
+        <!-- Matrix container for resume rendering -->
+        <div id="matrixContainer" class="card">
+          <!-- When resuming, select.js will render previously computed tables here -->
+          <h3 style="margin: 0 0 8px;">Computed Test Matrix</h3>
+          <div class="muted">If you arrived with <code>resume=1</code>, your last computed tables will load here.</div>
+        </div>
+
+        <!-- Existing tables (kept for compatibility; can stay hidden unless you use them elsewhere) -->
+        <div id="data-container" style="margin-top: 16px;">
+          <!-- FTire -->
+          <table id="ftireTable" class="data-table" style="display: none;">
+            <thead>
+              <tr>
+                <th>S.No</th>
+                <th>Test</th>
+                <th>Load (N)</th>
+                <th>IP (Kpa)</th>
+                <th>Speed (kmph)</th>
+                <th>Longitudinal Slip (%)</th>
+                <th>Slip Angle (deg)</th>
+                <th>Inclination Angle (deg)</th>
+                <th>Cleat Orientation (deg)</th>
+                <th>Status</th>
+                <th>Run</th>
+                <th>Tydex</th>
+              </tr>
+            </thead>
+            <tbody id="ftireTableBody"></tbody>
+          </table>
+
+          <!-- CDTire -->
+          <table id="cdtireTable" class="data-table" style="display: none;">
+            <thead>
+              <tr>
+                <th>No of Tests</th>
+                <th>Test Name</th>
+                <th>Inflation Pressure [bar]</th>
+                <th>Velocity [km/h]</th>
+                <th>Preload [N]</th>
+                <th>Camber [Deg]</th>
+                <th>Slip Angle [deg]</th>
+                <th>Displacement [mm]</th>
+                <th>Slip range [%]</th>
+                <th>Cleat</th>
+                <th>Road Surface</th>
+                <th>Status</th>
+                <th>Run</th>
+                <th>Tydex</th>
+              </tr>
+            </thead>
+            <tbody id="cdtireTableBody"></tbody>
+          </table>
+
+          <!-- MF 6.2 -->
+          <table id="mf62Table" class="data-table" style="display: none;">
+            <thead>
+              <tr>
+                <th>Number of Tests</th>
+                <th>Tests</th>
+                <th>Inflation Pressure [PSI]</th>
+                <th>Loads[Kg]</th>
+                <th>Inclination Angle[°]</th>
+                <th>Slip Angle[°]</th>
+                <th>Slip Ratio [%]</th>
+                <th>Test Velocity [Kmph]</th>
+                <th>Status</th>
+                <th>Run</th>
+                <th>Tydex</th>
+              </tr>
+            </thead>
+            <tbody id="mf62TableBody"></tbody>
+          </table>
+
+          <!-- MF 5.2 -->
+          <table id="mf52Table" class="data-table" style="display: none;">
+            <thead>
+              <tr>
+                <th>Number Of Tests</th>
+                <th>Tests</th>
+                <th>Inflation Pressure [PSI]</th>
+                <th>Loads[Kg]</th>
+                <th>Inclination Angle[°]</th>
+                <th>Slip Angle[°]</th>
+                <th>Slip Ratio [%]</th>
+                <th>Test Velocity [Kmph]</th>
+                <th>Status</th>
+                <th>Run</th>
+                <th>Tydex</th>
+              </tr>
+            </thead>
+            <tbody id="mf52TableBody"></tbody>
+          </table>
+
+          <!-- Custom -->
+          <table id="customTable" class="data-table" style="display: none;">
+            <thead>
+              <tr>
+                <th>No of Tests</th>
+                <th>Tests</th>
+                <th>Inflation Pressure [PSI]</th>
+                <th>Loads [Kg]</th>
+                <th>Inclination Angle [°]</th>
+                <th>Slip Angle [°]</th>
+                <th>Slip Ratio [%]</th>
+                <th>Test Velocity [Kmph]</th>
+                <th>Cleat Orientation [°]</th>
+                <th>Displacement [mm]</th>
+                <th>Status</th>
+                <th>Run</th>
+                <th>Tydex</th>
+              </tr>
+            </thead>
+            <tbody id="customTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- RIGHT: Tydex sidebar -->
+      <aside id="tydexSidebar" class="card sidebar">
+        <h3 style="margin:0;">Previously Generated Tydex Files</h3>
+        <div class="muted" style="margin-top:4px;">These are tied to the current project & protocol.</div>
+        <ul id="previous-tydex-list"></ul>
+      </aside>
+    </section>
+  </main>
+
+  <footer style="margin-top:16px;">
+    <button id="completeProjectBtn" class="submit-button">Complete Project</button>
+    <button id="markInProgressBtn" class="submit-button" style="margin-left:12px;background:#ffc107;color:#000;">
+      Mark project as In Progress
+    </button>
+  </footer>
+
+  <!-- Resume bootstrap & sidebar population -->
+  <script src="/js/select.js"></script>
+</body>
+</html>

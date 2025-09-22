@@ -1,0 +1,497 @@
+/* ===========================
+   EXISTING TABLE & BUTTONS
+   =========================== */
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  flex: 1;
+  margin-right: 0; /* Remove right margin since we have gap */
+}
+
+.data-table th,
+.data-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.data-table th {
+  background-color: #f4f4f4;
+}
+
+.button-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+/* Update run button styling to match submit button */
+.run-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.run-button:hover {
+  background-color: #45a049;
+}
+
+.logout-button {
+  position: absolute;
+  right: 20px;
+  top: 15px; /* Moved up from 20px */
+  background-color: #dc3545;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.logout-button:hover {
+  background-color: #c82333;
+}
+
+/* Status column and indicators */
+.status-cell {
+  width: 40px;
+  text-align: center;
+}
+
+.status-indicator {
+  color: #dc3545; /* Red color for X */
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Row run buttons */
+.run-button-cell {
+  padding: 5px;
+  text-align: center;
+}
+
+.row-run-btn {
+  padding: 4px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  height: 32px; /* Match table row height */
+  white-space: nowrap;
+}
+
+.row-run-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.row-run-btn:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+/* Layout helpers */
+.table-container {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.run-buttons-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 45px 10px 0 0; /* Top padding to align with table rows */
+}
+
+.protocol-title {
+  text-align: center;
+  font-size: 24px;
+  color: #582C7C;
+  margin: 20px 0;
+  font-weight: bold;
+}
+
+/* TYDEX buttons */
+.tydex-btn {
+  padding: 4px 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  height: 32px;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+}
+
+.tydex-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.tydex-btn:hover:not(:disabled) {
+  background-color: #218838 !important;
+}
+
+/* Teal color for Open File button state */
+.tydex-btn.open-file {
+  background-color: #228496;
+}
+
+.tydex-btn.open-file:hover {
+  background-color: #1e7085 !important;
+}
+
+.tydex-button-cell {
+  padding: 5px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* ===========================
+   COMPLETED-PROJECT ACTION BAR
+   =========================== */
+
+/* Container that appears only in archived/completed mode (inserted by JS) */
+.archived-toolbar {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(17, 24, 39, 0.18), 0 2px 6px rgba(17, 24, 39, 0.08);
+  z-index: 1000;
+  border: 1px solid rgba(88, 44, 124, 0.12); /* subtle tie-in with brand purple */
+}
+
+/* Spacer to push items to edges if needed */
+.archived-spacer {
+  flex: 1;
+}
+
+/* Icon button style used in the bar */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+  line-height: 1;
+  color: #1f2937; /* gray-800 */
+  background: #f9fafb; /* gray-50 */
+  border: 1px solid #e5e7eb; /* gray-200 */
+  border-radius: 10px;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.15s ease, background-color 0.2s ease;
+  text-decoration: none;
+  user-select: none;
+}
+
+.btn-icon i {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+/* Primary emphasis (e.g., Back) */
+.btn-icon.primary {
+  color: #ffffff;
+  background: linear-gradient(135deg, #6b3a9b, #582C7C);
+  border-color: transparent;
+}
+
+.btn-icon:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(31, 41, 55, 0.12);
+  background-color: #f3f4f6;
+}
+
+.btn-icon.primary:hover {
+  box-shadow: 0 8px 20px rgba(88, 44, 124, 0.35);
+}
+
+/* Danger/brand accent if you ever add a destructive action */
+.btn-icon.danger {
+  color: #fff;
+  background: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-icon.danger:hover {
+  box-shadow: 0 8px 20px rgba(220, 53, 69, 0.35);
+}
+
+/* Make text optional on small screens: icons-only */
+@media (max-width: 768px) {
+  .archived-toolbar {
+    right: 12px;
+    left: auto;
+    transform: none;
+    bottom: 12px;
+    gap: 8px;
+    padding: 8px 10px;
+  }
+  .btn-icon {
+    padding: 10px;
+    border-radius: 12px;
+  }
+  .btn-icon .btn-text {
+    display: none; /* hide labels -> icons-only */
+  }
+}
+
+/* ===========================
+   OPTIONAL: FLOATING STACK (ALT LAYOUT)
+   =========================== */
+
+.archived-floating {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 1000;
+}
+
+.fab-item {
+  position: relative;
+}
+
+.fab-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #6b3a9b, #582C7C);
+  color: #fff;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(88, 44, 124, 0.35), 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.fab-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(88, 44, 124, 0.38), 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.fab-tooltip {
+  position: absolute;
+  right: 56px; /* show to the left of the button */
+  top: 50%;
+  transform: translateY(-50%) translateX(6px);
+  background: #111827;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.fab-item:hover .fab-tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* ---------- Inputs modal (legible labels/values) ---------- */
+.inputs-modal-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(17, 24, 39, 0.45);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1100;
+}
+
+.inputs-modal {
+  width: min(880px, 92vw);
+  max-height: 80vh;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(17, 24, 39, 0.25);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+
+.inputs-modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px;
+  background: linear-gradient(180deg, #faf7fc, #ffffff);
+  border-bottom: 1px solid #eee7f4;
+}
+
+.inputs-title {
+  font-weight: 700; color: #1f2937; font-size: 18px;
+}
+.inputs-proto { color: #6b3a9b; font-weight: 600; }
+
+.inputs-actions { display: flex; gap: 10px; }
+.inputs-actions button {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid #e5e7eb; background: #f9fafb; color: #111827;
+  padding: 8px 12px; border-radius: 10px; cursor: pointer;
+  transition: background .15s ease, box-shadow .15s ease;
+  font-size: 14px;
+}
+.inputs-actions button i { font-size: 14px; }
+.inputs-actions button:hover { background: #f3f4f6; box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+.inputs-actions .inputs-copy.copied { background: #e7f7ef; border-color: #34d399; color: #065f46; }
+
+.inputs-grid {
+  padding: 8px 16px 16px;
+  overflow: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 18px;
+}
+
+.inputs-row {
+  display: contents; /* let label and value occupy the two columns */
+}
+.inputs-label {
+  font-weight: 600; color: #374151; background: #fafafa;
+  border: 1px solid #eee; border-radius: 8px;
+  padding: 10px 12px;
+}
+.inputs-value {
+  color: #111827; border: 1px solid #eee; border-radius: 8px;
+  padding: 10px 12px; background: #fff;
+  word-break: break-word;
+}
+
+.inputs-empty {
+  grid-column: 1 / -1;
+  color: #6b7280; padding: 12px;
+}
+
+/* Mobile: stack into one column */
+@media (max-width: 640px) {
+  .inputs-grid { grid-template-columns: 1fr; }
+  .inputs-label, .inputs-value { border-radius: 10px; }
+}
+
+/* ===========================
+   NEW: TWO-COLUMN LAYOUT WITH RIGHT SIDEBAR
+   =========================== */
+
+/* Put the table area (#data-container) and the TYDEX rail (.tydex-rail) in two columns */
+main {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 16px;
+  align-items: start;
+}
+
+/* Ensure the table area can scroll if tall */
+#data-container {
+  overflow: auto;
+}
+
+/* Right rail container */
+.tydex-rail {
+  position: sticky;
+  top: 12px;
+  max-height: calc(100vh - 160px);
+  overflow: auto;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.04);
+}
+
+.tydex-rail h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  color: #111827;
+}
+
+.tydex-rail .muted {
+  color: #666;
+  font-size: 12px;
+}
+
+.tydex-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+  display: grid;
+  gap: 8px;
+}
+
+.tydex-list li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border: 1px dashed #e6e6e6;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.tydex-list li .name {
+  font-weight: 600;
+  color: #1f2937;
+  word-break: break-word;
+}
+
+.tydex-list li .date {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.tydex-list li .btn {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  cursor: pointer;
+  transition: background .15s ease, box-shadow .15s ease;
+}
+
+.tydex-list li .btn:hover {
+  background: #f3f4f6;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+
+/* Small helper when empty */
+#no-tydex {
+  margin-top: 8px;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+/* Responsive: stack columns on small screens */
+@media (max-width: 960px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+  .tydex-rail {
+    position: static;
+    max-height: none;
+    order: 2; /* place below tables */
+  }
+}
